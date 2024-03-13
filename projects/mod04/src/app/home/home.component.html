@@ -1,0 +1,49 @@
+<style>
+    .full-width {
+        width: 100%;
+    }
+</style>
+<h1>會員註冊</h1>
+<form #f1="ngForm">
+    <div>
+        <mat-form-field class="full-width">
+            <mat-label>會員姓名</mat-label>
+            <input [(ngModel)]="member.userName" #userName="ngModel" name="userName" matInput required
+                placeholder="會員姓名">
+            <mat-error *ngIf="userName.errors?.['required']">請輸入<strong>會員姓名</strong></mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="full-width ">
+            <mat-label>電子郵件</mat-label>
+            <input [(ngModel)]="member.email" #email="ngModel" name="email" matInput required placeholder="會員姓名">
+            <mat-error *ngIf="email.errors?.['required']">請輸入<strong>會員姓名</strong></mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="fill" class="full-width ">
+            <mat-label>性別</mat-label>
+            <mat-select required [(ngModel)]="member.gender" #gen="ngModel" name="gender">
+                <mat-option value="0">請選擇廠商</mat-option>
+                <mat-option *ngFor="let g of gender" [value]="g.value">{{g.display}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field floatLabel="always" class="full-width ">
+            <mat-label>生日</mat-label>
+            <input matInput [matDatepicker]="picker" name='subjectID' [(ngModel)]="member.birthday" #birthday="ngModel">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+
+
+
+    <button mat-raised-button color="primary">Submit</button>
+    <button mat-raised-button>Add Now</button>
+</form>

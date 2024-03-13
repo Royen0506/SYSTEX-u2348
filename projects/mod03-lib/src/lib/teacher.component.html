@@ -1,0 +1,12 @@
+<a routerLink="project" [queryParams]="{data:passData}">project (pass by parms)</a> /
+<a routerLink="abc"  [state]="{data:passData}">abc </a>
+<div>
+    passDataByParams: 
+    <button (click)="passDataByParams()">
+        pass data by params use router.navigate().
+    </button>
+</div>
+
+<hr>
+
+<router-outlet></router-outlet>

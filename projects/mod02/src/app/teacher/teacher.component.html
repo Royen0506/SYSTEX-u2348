@@ -1,0 +1,14 @@
+<div style="display: flex;">
+    <a style="margin-left: 1rem;" routerLink="project">Project</a>
+    <a style="margin-left: 1rem;" routerLink="abc">abc</a>
+
+    <a style="margin-left: 1rem;" [href]="'teacher/project?data='+passData">teacher/project?data=value</a>
+    <a style="margin-left: 1rem;" routerLink="project" [queryParams]="{data:passData}">project(pass by params)</a>
+    <!--最簡單 -->
+    <div style="margin-left: 1rem;">passDataByParams: <button (click)="passDataByParams()">pass data by params use
+            router.navigate()</button></div>
+    <!-- 用函式帶入資料 -->
+    <a style="margin-left: 1rem;" routerLink="abc" [state]="{data:passData}">abc state</a>
+</div>
+
+<router-outlet></router-outlet>
