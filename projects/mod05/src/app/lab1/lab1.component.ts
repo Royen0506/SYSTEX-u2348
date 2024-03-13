@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Member } from '../member';
 import { deptSubject } from '../subject';
+import { CustomValidators } from '../custom-validators';
+import { AsyncCustomValidator } from '../async-custom-validator';
 
 @Component({
   selector: 'app-lab1',
@@ -26,41 +28,51 @@ export class Lab1Component implements OnInit {
     this.memberForm.setValue(this.user);
   }
 
-  memberForm = new FormGroup({
-    userName: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2)],
-    }),
-    password: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
-        ),
-      ],
-    }),
-    confirmPassword: new FormControl<string | null>(null, {
-      validators: Validators.required,
-    }),
-    email: new FormControl<string | null>('', {
-      validators: Validators.email,
-    }),
-    birthday: new FormControl<Date | null>(null, {
-      validators: Validators.required,
-    }),
-    phone: new FormControl('', {
-      nonNullable: true,
-      validators: Validators.required,
-    }),
-    enabled: new FormControl<boolean | null>(null, {
-      validators: Validators.required,
-    }),
-    subjects: new FormArray([
-      new FormControl<string | null>(null, { validators: Validators.required }),
-    ]),
-  });
+  memberForm = new FormGroup(
+    {
+      userName: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          // CustomValidators.CheckExistName(),
+        ],
+        asyncValidators: [AsyncCustomValidator.AsyncCheckExistName()],
+      }),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+          ),
+        ],
+      }),
+      confirmPassword: new FormControl<string | null>(null, {
+        validators: [Validators.required],
+      }),
+      email: new FormControl<string | null>('', {
+        validators: Validators.email,
+      }),
+      birthday: new FormControl<Date | null>(null, {
+        validators: Validators.required,
+      }),
+      phone: new FormControl('', {
+        nonNullable: true,
+        validators: Validators.required,
+      }),
+      enabled: new FormControl<boolean | null>(null, {
+        validators: Validators.required,
+      }),
+      subjects: new FormArray([
+        new FormControl<string | null>(null, {
+          validators: Validators.required,
+        }),
+      ]),
+    },
+    { validators: [CustomValidators.EqualValue('password', 'confirmPassword')] }
+  );
 
   deptSubject = deptSubject;
   get subjects() {
@@ -118,6 +130,10 @@ export class Lab1Component implements OnInit {
       errorMessage = `${display}長度不得低於${formControl?.errors?.['minlength'].requiredLength}個字元`;
     } else if (formControl?.errors?.['email']) {
       errorMessage = `${display}`;
+    } else if (formControl?.errors?.['CheckExistName']) {
+      errorMessage = `${display}${formControl?.errors?.['CheckExistName'].requiredValue}`;
+    } else if (formControl?.errors?.['EqualValue']) {
+      errorMessage = `${display}${formControl?.errors?.['EqualValue'].requiredValue}`;
     }
 
     return errorMessage;
