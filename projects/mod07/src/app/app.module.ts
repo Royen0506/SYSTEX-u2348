@@ -17,9 +17,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UseTableComponent } from './use-table/use-table.component';
+import { UseMatTableComponent } from './use-mat-table/use-mat-table.component';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 @NgModule({
-  declarations: [AppComponent, LayoutRootComponent, UseTableComponent],
+  declarations: [
+    AppComponent,
+    LayoutRootComponent,
+    UseTableComponent,
+    UseMatTableComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,6 +43,7 @@ import { UseTableComponent } from './use-table/use-table.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatTableExporterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

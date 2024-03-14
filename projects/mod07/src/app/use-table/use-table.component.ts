@@ -15,4 +15,10 @@ export class UseTableComponent implements OnInit {
   RowClick(row: any) {
     console.log(row);
   }
+
+  getTotalSize() {
+    return meetingRooms
+      .map((r) => r.size)
+      .reduce((previousValue, currentValue) => previousValue + currentValue);
+  }
 }
