@@ -1,5 +1,5 @@
-<a routerLink="home">Home</a> /
-<a routerLink="adminpage">管理頁面</a> /
+<a routerLink="home" i18n>首頁</a> /
+<a routerLink="adminpage" i18n>管理頁面</a> /
 <a routerLink="membercenter">會員中心</a> /
 <input type="hidden" [(ngModel)]="authService.IsAuthenticate">
 <span *ngIf="authService.IsAuthenticate; else isLogout">
